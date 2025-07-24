@@ -3,6 +3,7 @@ import { CoreModule } from './core/core.module';
 import * as cookieParser from 'cookie-parser';
 import { ConfigService } from '@nestjs/config';
 import * as session from 'express-session';
+import * as graphqlUpload from 'graphql-upload/graphqlUploadExpress.js';
 import { ValidationPipe } from '@nestjs/common';
 import { ms, type StringValue } from './shared/utils/ms.util';
 import { parseBoolean } from './shared/utils/parse-boolean.util';
@@ -16,6 +17,7 @@ async function bootstrap() {
   const redis = app.get(RedisService);
 
   app.use(cookieParser(config.getOrThrow<string>('COOKIE_SECRET')));
+  app.use(config.getOrThrow<string>('GRAPHQL_PREFIX'), graphqlUpload());
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.use(
     session({

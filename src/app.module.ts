@@ -11,7 +11,6 @@ import { RecoveryModule } from './modules/auth/recovery/recovery.module';
 import { TotpModule } from './modules/auth/totp/totp.module';
 import { DeactivateModule } from './modules/auth/deactivate/deactivate.module';
 import { CronModule } from './modules/cron/cron.module';
-import { StoradgeModule } from './modules/libs/storadge/storadge.module';
 import { StorageModule } from './modules/libs/storage/storage.module';
 import { ProfileModule } from './modules/auth/profile/profile.module';
 
@@ -27,7 +26,6 @@ import { ProfileModule } from './modules/auth/profile/profile.module';
     TotpModule,
     DeactivateModule,
     CronModule,
-    StoradgeModule,
     StorageModule,
     ProfileModule,
   ],

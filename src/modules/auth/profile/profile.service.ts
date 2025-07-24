@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/prisma/prisma.service';
 import * as Upload from 'graphql-upload/Upload.js';
 import { StorageService } from 'src/modules/libs/storage/storage.service';
 import type { User } from 'generated/prisma';
 import sharp from 'sharp';
+import { ChangeInfoInput } from './inputs/change-info.input';
 
 @Injectable()
 export class ProfileService {
@@ -57,6 +58,27 @@ export class ProfileService {
     await this.prismaService.user.update({
       where: { id: user.id },
       data: { avatar: null },
+    });
+
+    return true;
+  }
+
+  public async changeProfileInfo(user: User, input: ChangeInfoInput) {
+    const { username, displayName, bio } = input;
+
+    const usernameExists = await this.prismaService.user.findUnique({
+      where: {
+        username,
+      },
+    });
+
+    if (usernameExists && username !== user.username) {
+      throw new ConflictException('Username already exists');
+    }
+
+    await this.prismaService.user.update({
+      where: { id: user.id },
+      data: { username, displayName, bio },
     });
 
     return true;
