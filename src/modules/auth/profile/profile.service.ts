@@ -1,10 +1,19 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/core/prisma/prisma.service';
 import * as Upload from 'graphql-upload/Upload.js';
 import { StorageService } from 'src/modules/libs/storage/storage.service';
 import type { User } from 'generated/prisma';
 import sharp from 'sharp';
 import { ChangeInfoInput } from './inputs/change-info.input';
+import {
+  ReorderSocialLinksInput,
+  SocialLinkInput,
+} from './inputs/social-link.input';
 
 @Injectable()
 export class ProfileService {
@@ -81,6 +90,87 @@ export class ProfileService {
       data: { username, displayName, bio },
     });
 
+    return true;
+  }
+
+  public async findSocialLinks(user: User) {
+    const socialLinks = await this.prismaService.socialLinks.findMany({
+      where: { userId: user.id },
+      orderBy: { position: 'asc' },
+    });
+
+    return socialLinks;
+  }
+
+  public async createSocialLink(user: User, input: SocialLinkInput) {
+    const { title, url } = input;
+    const lastSocialLink = await this.prismaService.socialLinks.findFirst({
+      where: {
+        userId: user.id,
+      },
+      orderBy: {
+        position: 'desc',
+      },
+    });
+
+    const newPosition = lastSocialLink ? lastSocialLink.position + 1 : 1;
+
+    await this.prismaService.socialLinks.create({
+      data: {
+        title,
+        url,
+        position: newPosition,
+        user: {
+          connect: {
+            id: user.id,
+          },
+        },
+      },
+    });
+    return true;
+  }
+
+  public async reorderSocialLinks(list: ReorderSocialLinksInput[]) {
+    if (!list.length) {
+      return;
+    }
+
+    const updatedPromises = list.map(async (socialLink) => {
+      return await this.prismaService.socialLinks.update({
+        where: {
+          id: socialLink.id,
+        },
+        data: {
+          position: socialLink.position,
+        },
+      });
+    });
+
+    await Promise.all(updatedPromises);
+    return true;
+  }
+
+  public async updateSocialLink(id: string, input: SocialLinkInput) {
+    const { title, url } = input;
+
+    await this.prismaService.socialLinks.update({
+      where: {
+        id,
+      },
+      data: {
+        title,
+        url,
+      },
+    });
+    return true;
+  }
+
+  public async deleteSocialLink(id: string) {
+    await this.prismaService.socialLinks.delete({
+      where: {
+        id,
+      },
+    });
     return true;
   }
 }

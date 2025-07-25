@@ -28,6 +28,11 @@ input CreateUserInput {
   username: String!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 input DeactivateAccountInput {
   email: String!
   password: String!
@@ -64,8 +69,10 @@ type Mutation {
   changeProfileAvatar(avatar: Upload!): Boolean!
   changeProfileInfo(data: ChangeInfoInput!): Boolean!
   clearSessionCookie: Boolean!
+  createSocialLink(data: SocialLinkInput!): Boolean!
   createUser(data: CreateUserInput!): Boolean!
   deactivateAccount(data: DeactivateAccountInput!): AuthModel!
+  deleteSocialLink(id: String!): Boolean!
   disableTotp: Boolean!
   enableTotp(data: EnableToptInput!): Boolean!
   loginUser(data: LoginInput!): AuthModel!
@@ -73,7 +80,9 @@ type Mutation {
   newPassword(data: NewPasswordInput!): Boolean!
   removeProfileAvatar: Boolean!
   removeSession(id: String!): Boolean!
+  reorderSocialLinks(list: [ReorderSocialLinksInput!]!): Boolean!
   resetPassword(data: ResetPasswordInput!): Boolean!
+  updateSocialLink(data: SocialLinkInput!, id: String!): Boolean!
   verifyEmail(data: VerificationInput!): UserModel!
 }
 
@@ -87,7 +96,13 @@ type Query {
   findCurrentSession: SessionModel!
   findProfile: UserModel!
   findSessionsbyUser: [SessionModel!]!
+  findSocialLinks: [SocialLinkModel!]!
   generateTotpSecret: TotpModel!
+}
+
+input ReorderSocialLinksInput {
+  id: String!
+  position: Float!
 }
 
 input ResetPasswordInput {
@@ -104,6 +119,21 @@ type SessionModel {
   createdAt: String!
   id: ID!
   metadata: SessionMetadataModel!
+  userId: String!
+}
+
+input SocialLinkInput {
+  title: String!
+  url: String!
+}
+
+type SocialLinkModel {
+  createdAt: DateTime!
+  id: ID!
+  position: Float!
+  title: String!
+  updatedAt: DateTime!
+  url: String!
   userId: String!
 }
 
