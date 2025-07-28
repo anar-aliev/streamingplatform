@@ -1,4 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
+import { SocialLinkModel } from '../../profile/models/social-link.model';
+import { StreamModel } from 'src/modules/stream/models/stream.model';
 
 @ObjectType()
 export class UserModel {
@@ -34,6 +36,12 @@ export class UserModel {
 
   @Field(() => String, { nullable: true })
   public avatar: string;
+
+  @Field(() => [SocialLinkModel], { nullable: true })
+  public socialLinks: SocialLinkModel[];
+
+  @Field(() => StreamModel)
+  public stream: StreamModel;
 
   @Field(() => String, { nullable: true })
   public bio: string;

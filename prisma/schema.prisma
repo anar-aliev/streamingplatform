@@ -41,6 +41,8 @@ bio String?
 
   socialLinks SocialLinks[]
 
+  stream Stream?
+
 
   tokens Token[]
 
@@ -52,6 +54,35 @@ bio String?
 
   @@map("users")
 }
+
+model Stream{
+  id String @id @default(uuid())
+
+  title String
+  thumbnailUrl String?
+
+
+
+  ingressId String? @map("ingress_id")
+  serverUrl String? @map("server_url")
+  streamKey String?  @map("stream_key")
+
+
+
+  isLive Boolean @default(false) @map("is_live")
+
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String? @unique @map("user_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("streams")
+}
+
+
+
 
 model SocialLinks{
   id String @id @default(uuid())

@@ -35,6 +35,7 @@ export default tseslint.config(
       '@typescript-eslint/restrict-template-expressions': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-enum-comparison': 'warn',
+      '@typescript-eslint/no-unused-vars': 'warn',
       'prettier/prettier': ['error', { endOfLine: 'auto' }],
     },
   },
