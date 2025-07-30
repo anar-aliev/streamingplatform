@@ -14,6 +14,7 @@ import { CronModule } from './modules/cron/cron.module';
 import { StorageModule } from './modules/libs/storage/storage.module';
 import { ProfileModule } from './modules/auth/profile/profile.module';
 import { StreamModule } from './modules/stream/stream.module';
+import { LivekitModule } from './modules/libs/livekit/livekit.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { StreamModule } from './modules/stream/stream.module';
     StorageModule,
     ProfileModule,
     StreamModule,
+    LivekitModule,
   ],
   controllers: [AppController],
   providers: [AppService],

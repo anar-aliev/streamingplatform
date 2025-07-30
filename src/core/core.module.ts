@@ -17,7 +17,9 @@ import { CronModule } from '../modules/cron/cron.module';
 import { StorageModule } from '../modules/libs/storage/storage.module';
 import { ProfileModule } from 'src/modules/auth/profile/profile.module';
 import { StreamModule } from 'src/modules/stream/stream.module';
-
+import { LivekitModule } from 'src/modules/libs/livekit/livekit.module';
+import { getLiveKitConfig } from './config/livekit.config';
+import { IngressModule } from 'src/modules/stream/ingress/ingress.module';
 
 @Module({
   imports: [
@@ -33,6 +35,11 @@ import { StreamModule } from 'src/modules/stream/stream.module';
     }),
     PrismaModule,
     RedisModule,
+    LivekitModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: getLiveKitConfig,
+      inject: [ConfigService],
+    }),
     AccountModule,
     SessionModule,
     CronModule,
@@ -44,6 +51,7 @@ import { StreamModule } from 'src/modules/stream/stream.module';
     StorageModule,
     ProfileModule,
     StreamModule,
+    IngressModule
   ],
 })
 export class CoreModule {}
