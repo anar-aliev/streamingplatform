@@ -15,6 +15,7 @@ import { StorageModule } from './modules/libs/storage/storage.module';
 import { ProfileModule } from './modules/auth/profile/profile.module';
 import { StreamModule } from './modules/stream/stream.module';
 import { LivekitModule } from './modules/libs/livekit/livekit.module';
+import { CategoryModule } from './modules/category/category.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { LivekitModule } from './modules/libs/livekit/livekit.module';
     ProfileModule,
     StreamModule,
     LivekitModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

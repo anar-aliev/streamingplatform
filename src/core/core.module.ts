@@ -20,6 +20,7 @@ import { StreamModule } from 'src/modules/stream/stream.module';
 import { LivekitModule } from 'src/modules/libs/livekit/livekit.module';
 import { getLiveKitConfig } from './config/livekit.config';
 import { IngressModule } from 'src/modules/stream/ingress/ingress.module';
+import { CategoryModule } from 'src/modules/category/category.module';
 
 @Module({
   imports: [
@@ -51,7 +52,8 @@ import { IngressModule } from 'src/modules/stream/ingress/ingress.module';
     StorageModule,
     ProfileModule,
     StreamModule,
-    IngressModule
+    IngressModule,
+    CategoryModule,
   ],
 })
 export class CoreModule {}
