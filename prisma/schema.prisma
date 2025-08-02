@@ -63,7 +63,7 @@ model Stream{
 
 
 
-  ingressId String? @map("ingress_id")
+  ingressId String? @unique @map("ingress_id")
   serverUrl String? @map("server_url")
   streamKey String?  @map("stream_key")
 

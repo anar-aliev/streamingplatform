@@ -16,6 +16,7 @@ import { ProfileModule } from './modules/auth/profile/profile.module';
 import { StreamModule } from './modules/stream/stream.module';
 import { LivekitModule } from './modules/libs/livekit/livekit.module';
 import { CategoryModule } from './modules/category/category.module';
+import { WebhookModule } from './modules/webhook/webhook.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { CategoryModule } from './modules/category/category.module';
     StreamModule,
     LivekitModule,
     CategoryModule,
+    WebhookModule,
   ],
   controllers: [AppController],
   providers: [AppService],
