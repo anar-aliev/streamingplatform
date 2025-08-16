@@ -22,6 +22,7 @@ import { getLiveKitConfig } from './config/livekit.config';
 import { IngressModule } from 'src/modules/stream/ingress/ingress.module';
 import { CategoryModule } from 'src/modules/category/category.module';
 import { WebhookModule } from 'src/modules/webhook/webhook.module';
+import { ChatModule } from 'src/modules/chat/chat.module';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { WebhookModule } from 'src/modules/webhook/webhook.module';
     IngressModule,
     CategoryModule,
     WebhookModule,
+    ChatModule,
   ],
 })
 export class CoreModule {}

@@ -32,12 +32,21 @@ export class StreamModel implements Stream {
   @Field(() => String)
   public userId: string;
 
+  @Field(() => Boolean)
+  public isChatEnabled: boolean;
+
+  @Field(() => Boolean)
+  public isChatFollowersOnly: boolean;
+
+  @Field(() => Boolean)
+  public isChatPremiumFollowersOnly: boolean;
+
   @Field(() => CategoryModel, { nullable: true })
   public category: CategoryModel;
 
   @Field(() => String, { nullable: true })
   public categoryId: string;
-  
+
 
   @Field(() => Date)
   public createdAt: Date;

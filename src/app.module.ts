@@ -17,6 +17,7 @@ import { StreamModule } from './modules/stream/stream.module';
 import { LivekitModule } from './modules/libs/livekit/livekit.module';
 import { CategoryModule } from './modules/category/category.module';
 import { WebhookModule } from './modules/webhook/webhook.module';
+import { ChatModule } from './modules/chat/chat.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { WebhookModule } from './modules/webhook/webhook.module';
     LivekitModule,
     CategoryModule,
     WebhookModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],
